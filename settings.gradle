@@ -1,0 +1,5 @@
+include ':base'
+include ':watchlist'
+include ':auth'
+include ':app'
+rootProject.name = "Mini Stockbit App"

@@ -1,0 +1,104 @@
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'androidx.navigation.safeargs.kotlin'
+apply from: "${rootProject.rootDir}/env.properties"
+
+android {
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
+    }
+    compileSdkVersion 30
+    defaultConfig {
+        minSdkVersion 21
+    }
+
+    buildTypes {
+        debug {
+            buildConfigField "String", "BASE_URL", "\"${DEV_URL}\""
+            minifyEnabled false
+        }
+        release {
+            buildConfigField "String", "BASE_URL", "\"${RELEASE_URL}\""
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "androidx.appcompat:appcompat:$appcompat_version"
+    implementation "androidx.core:core-ktx:$core_ktx_version"
+    implementation "androidx.constraintlayout:constraintlayout:$constraint_layout_version"
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+    implementation "androidx.legacy:legacy-support-v4:$androidx_legacy_support_version"
+    implementation "androidx.fragment:fragment-ktx:$ktx_fragment_version"
+    implementation "com.google.android.play:core:$google_play_core_version"
+
+    // couroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutine_version"
+    implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:$coroutine_adapter_version"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutine_version"
+
+    // Retrofit and Gson
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    implementation "com.google.code.gson:gson:$gson_version"
+    implementation "com.squareup.retrofit2:converter-moshi:$moshi_converter_version"
+    implementation "com.squareup.okhttp3:logging-interceptor:$logging_interceptor_version"
+
+    // Glide
+    implementation "com.github.bumptech.glide:glide:$glide_version"
+
+    // Room
+    implementation "androidx.room:room-runtime:$room_version"
+    implementation "androidx.preference:preference-ktx:$preference_version"
+    kapt "androidx.room:room-compiler:$room_version"
+    implementation "androidx.room:room-ktx:$room_version"
+
+    // Material
+    implementation "com.google.android.material:material:$material_version"
+
+    // Dependencies for local unit tests
+    testImplementation "junit:junit:$junit_version"
+
+    // Koin Android ViewModel feature
+    implementation  "org.koin:koin-androidx-viewmodel:$koin_version"
+
+    // Timber Logging
+    implementation "com.jakewharton.timber:timber:$timber_version"
+
+    // Dependencies for Paging
+    implementation "androidx.paging:paging-runtime-ktx:$paging_version"
+
+    // Navigation
+    implementation "androidx.navigation:navigation-fragment-ktx:$navigation_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$navigation_version"
+
+    // Leak Canary
+    debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakcanary_version"
+
+    // Shimmer Effect
+    implementation 'com.facebook.shimmer:shimmer:0.5.0'
+
+    // Unit Test
+    testImplementation "io.mockk:mockk:$mockk_version"
+    testImplementation "com.jraska.livedata:testing-ktx:$livedata_test_version"
+    testImplementation "android.arch.core:core-testing:$lifecycle_version"
+    testImplementation "androidx.test:runner:$android_runner_test_version"
+    testImplementation "com.squareup.okhttp3:mockwebserver:$mock_web_server_version"
+    testImplementation "com.github.shyiko:ktlint:$ktlint_version"
+    testImplementation "androidx.test.ext:junit:$androidx_junit_version"
+}

@@ -1,0 +1,23 @@
+apply plugin: 'com.android.application'
+apply from: "$rootProject.projectDir/module.gradle"
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.3"
+
+    defaultConfig {
+        applicationId "com.ariffadlysiregar.ministockbitapp"
+        minSdkVersion 21
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+}
+
+dependencies {
+    implementation project(":base")
+    implementation project(":auth")
+    implementation project(":watchlist")
+}
